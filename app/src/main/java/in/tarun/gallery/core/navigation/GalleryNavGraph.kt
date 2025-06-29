@@ -15,7 +15,8 @@ fun GalleryNavGraph(navController: NavHostController) {
         }
 
         composable("albumDetail/{albumName}") { backStackEntry ->
-              AlbumDetailScreen()
+            val albumName = backStackEntry.arguments?.getString("albumName") ?: return@composable
+            AlbumDetailScreen(albumName, navController)
         }
     }
 }
