@@ -5,6 +5,10 @@ import android.content.Context
 import android.provider.MediaStore
 import javax.inject.Inject
 import dagger.hilt.android.qualifiers.ApplicationContext
+import `in`.tarun.gallery.core.util.ALL_IMAGES
+import `in`.tarun.gallery.core.util.ALL_VIDEOS
+import `in`.tarun.gallery.core.util.IMAGE
+import `in`.tarun.gallery.core.util.VIDEO
 import `in`.tarun.gallery.feature.gallerydetails.domain.model.Album
 import `in`.tarun.gallery.feature.gallerydetails.domain.repository.MediaRepository
 
@@ -52,12 +56,12 @@ class MediaRepositoryImpl @Inject constructor(
                 val filePath = cursor.getString(pathColumnIndex)
                 val mimeType = cursor.getString(mimeColumnIndex) ?: ""
 
-                val fileType = if (mimeType.startsWith("image")) {
+                val fileType = if (mimeType.startsWith(IMAGE)) {
                     imageCollection.add(filePath)
-                    "image"
-                } else if (mimeType.startsWith("video")) {
+                    IMAGE
+                } else if (mimeType.startsWith(VIDEO)) {
                     videoCollection.add(filePath)
-                    "video"
+                    VIDEO
                 } else continue
 
                 folderMap.getOrPut(folderName) { mutableListOf() }.add(filePath to fileType)
@@ -65,8 +69,8 @@ class MediaRepositoryImpl @Inject constructor(
         }
 
         val regularAlbums = folderMap.map { (folderName, fileList) ->
-            val imageThumbnail = fileList.firstOrNull { it.second == "image" }?.first
-            val videoThumbnail = fileList.firstOrNull { it.second == "video" }?.first
+            val imageThumbnail = fileList.firstOrNull { it.second == IMAGE }?.first
+            val videoThumbnail = fileList.firstOrNull { it.second == VIDEO }?.first
             val thumbnailPath = imageThumbnail ?: videoThumbnail
             val isVideoThumb = imageThumbnail == null && videoThumbnail != null
 
@@ -80,10 +84,10 @@ class MediaRepositoryImpl @Inject constructor(
 
         val specialAlbums = mutableListOf<Album>()
         if (imageCollection.isNotEmpty()) {
-            specialAlbums.add(Album("All Images", imageCollection.size, imageCollection.first()))
+            specialAlbums.add(Album(ALL_IMAGES, imageCollection.size, imageCollection.first()))
         }
         if (videoCollection.isNotEmpty()) {
-            specialAlbums.add(Album("All Videos", videoCollection.size, videoCollection.first(), isVideoThumbnail = true))
+            specialAlbums.add(Album(ALL_VIDEOS, videoCollection.size, videoCollection.first(), isVideoThumbnail = true))
         }
 
         return (specialAlbums + regularAlbums).sortedByDescending { it.itemCount }
