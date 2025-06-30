@@ -25,7 +25,6 @@ class RetrieveAlbumContentsUseCaseTest {
 
     @Test
     fun `invoke should return media items from repository`() = runTest {
-        // Given
         val albumName = "Test Album"
         val testData1 = TestUtils.createTestMediaItemData(
             id = 1L,
@@ -61,36 +60,29 @@ class RetrieveAlbumContentsUseCaseTest {
         )
         coEvery { mockRepository.getListOfMedia(albumName) } returns expectedMediaItems
 
-        // When
         val result = useCase(albumName)
 
-        // Then
         assertEquals(expectedMediaItems, result)
     }
 
     @Test
     fun `invoke should return empty list when repository returns empty list`() = runTest {
-        // Given
         val albumName = "Empty Album"
         val emptyMediaItems = emptyList<MediaItem>()
         coEvery { mockRepository.getListOfMedia(albumName) } returns emptyMediaItems
 
-        // When
         val result = useCase(albumName)
 
-        // Then
         assertEquals(emptyMediaItems, result)
         assert(result.isEmpty())
     }
 
     @Test
     fun `invoke should propagate exception from repository`() = runTest {
-        // Given
         val albumName = "Error Album"
         val exception = Exception("Repository error")
         coEvery { mockRepository.getListOfMedia(albumName) } throws exception
 
-        // When & Then
         try {
             useCase(albumName)
             assert(false) // Should not reach here
@@ -101,15 +93,12 @@ class RetrieveAlbumContentsUseCaseTest {
 
     @Test
     fun `invoke should handle empty album name`() = runTest {
-        // Given
         val emptyAlbumName = ""
         val expectedMediaItems = listOf<MediaItem>()
         coEvery { mockRepository.getListOfMedia(emptyAlbumName) } returns expectedMediaItems
 
-        // When
         val result = useCase(emptyAlbumName)
 
-        // Then
         assertEquals(expectedMediaItems, result)
     }
 } 

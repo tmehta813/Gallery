@@ -30,14 +30,9 @@ class MainCoroutineRule(
     }
 }
 
-/**
- * Test utilities for common test operations
- */
+
 object TestUtils {
-    
-    /**
-     * Creates a test album with default values
-     */
+
     fun createTestAlbum(
         name: String = "Test Album",
         itemCount: Int = 10,
@@ -50,10 +45,7 @@ object TestUtils {
         isVideoThumbnail = isVideoThumbnail
     )
 
-    /**
-     * Creates test data for MediaItem without requiring android.net.Uri
-     * This is used for unit tests where Android framework classes are not available
-     */
+
     fun createTestMediaItemData(
         id: Long = 1L,
         name: String = "test_media.jpg",
@@ -71,9 +63,7 @@ object TestUtils {
     )
 }
 
-/**
- * Test data class for MediaItem that doesn't require android.net.Uri
- */
+
 data class TestMediaItemData(
     val id: Long,
     val uriString: String,

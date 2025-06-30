@@ -1,11 +1,11 @@
 # Gallery App
 
-A modern Android gallery application built with Jetpack Compose, following clean architecture principles and Material Design 3 guidelines.
+An Android gallery application built with Jetpack Compose, following clean architecture principles and Material Design 3 guidelines.
 
 ## Features
 
 - **Album Browsing**: View all photo and video albums on your device
-- **Dual View Modes**: Switch between grid and list layouts for optimal viewing
+- **View Modes**: Switch between grid and list layouts for optimal viewing
 - **Media Preview**: Browse individual photos and videos within albums
 - **Video Thumbnails**: Automatic video thumbnail generation with play overlay
 - **Permission Handling**: Graceful permission request flow with user-friendly prompts
@@ -59,7 +59,6 @@ The app includes a separate `components` module containing reusable UI component
 - **GridLayout**: Reusable grid layout component
 - **ListLayout**: Reusable list layout component
 - **PermissionPromptCard**: Permission request card with Material Design 3
-- **VideoPreview**: Video thumbnail with play overlay
 
 ### Feature Modules
 
@@ -134,19 +133,7 @@ Run Android tests with:
 ./gradlew connectedAndroidTest
 ```
 
-### Test Coverage
 
-The app includes comprehensive testing:
-- **Unit Tests**: ViewModels, use cases, and repositories
-- **UI Tests**: Compose component testing
-- **Integration Tests**: End-to-end functionality testing
-
-## Configuration
-
-### Build Variants
-
-- **Debug**: Development build with debugging enabled
-- **Release**: Production build with optimizations
 
 ### Dependencies
 
@@ -155,39 +142,3 @@ Key dependencies are managed through the version catalog in `gradle/libs.version
 - Hilt for dependency injection
 - Coil for image loading
 - Navigation Compose for navigation
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Commit your changes: `git commit -m 'Add amazing feature'`
-4. Push to the branch: `git push origin feature/amazing-feature`
-5. Open a Pull Request
-
-### Code Style
-
-- Follow Kotlin coding conventions
-- Use meaningful variable and function names
-- Write comprehensive tests for new features
-- Follow Material Design 3 guidelines for UI components
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-- Material Design 3 guidelines
-- Jetpack Compose documentation
-- Android developer community
-
-## Support
-
-For support and questions:
-- Create an issue on GitHub
-- Check the documentation
-- Review the code examples
-
----
-
-**Note**: This app requires appropriate permissions to access device storage. Make sure to grant the necessary permissions when prompted.

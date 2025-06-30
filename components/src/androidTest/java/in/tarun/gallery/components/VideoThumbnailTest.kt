@@ -1,6 +1,5 @@
 package `in`.tarun.gallery.components
 
-import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -54,7 +53,7 @@ class VideoPreviewTest {
             VideoPreview(
                 videoPath = videoPath,
                 accessibilityDescription = "Video preview",
-                containerModifier = androidx.compose.ui.Modifier
+                modifier = androidx.compose.ui.Modifier
             )
         }
 
@@ -110,8 +109,5 @@ class VideoPreviewTest {
                 accessibilityDescription = "Video preview"
             )
         }
-
-        // Then
-        // Should not crash and should handle invalid path gracefully
     }
 } 

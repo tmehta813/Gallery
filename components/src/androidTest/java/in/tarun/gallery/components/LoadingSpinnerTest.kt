@@ -38,7 +38,7 @@ class CircularLoaderTest {
     fun circularLoader_withCustomModifier_isDisplayed() {
         // When
         composeTestRule.setContent {
-            CircularLoader(containerModifier = androidx.compose.ui.Modifier)
+            CircularLoader(modifier = androidx.compose.ui.Modifier)
         }
 
         // Then

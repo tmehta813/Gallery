@@ -112,8 +112,5 @@ class GridLayoutTest {
                 }
             )
         }
-
-        // Then
-        // Should not crash and should display empty grid
     }
 } 

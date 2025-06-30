@@ -41,19 +41,15 @@ class AlbumDetailViewModelTest {
 
     @Test
     fun `initial state should be Loading`() = runTest {
-        // Given
         coEvery { mockUseCase("Test Album") } returns emptyList()
-        
-        // When
+
         viewModel = AlbumDetailViewModel(mockUseCase, savedStateHandle)
-        
-        // Then
+
         assertTrue(viewModel.uiState.value is AlbumDetailUiState.Loading)
     }
 
     @Test
     fun `should load media items successfully`() = runTest {
-        // Given
         val testData1 = TestUtils.createTestMediaItemData(
             id = 1L,
             name = "image1.jpg",
@@ -87,11 +83,9 @@ class AlbumDetailViewModelTest {
         )
         coEvery { mockUseCase("Test Album") } returns mockMediaItems
 
-        // When
         viewModel = AlbumDetailViewModel(mockUseCase, savedStateHandle)
         testDispatcher.scheduler.advanceUntilIdle()
 
-        // Then
         val currentState = viewModel.uiState.value
         assertTrue(currentState is AlbumDetailUiState.Success)
         assertEquals(mockMediaItems, (currentState as AlbumDetailUiState.Success).media)
@@ -99,15 +93,13 @@ class AlbumDetailViewModelTest {
 
     @Test
     fun `should emit Error state when use case throws exception`() = runTest {
-        // Given
+
         val errorMessage = "Failed to load media"
         coEvery { mockUseCase("Test Album") } throws Exception(errorMessage)
 
-        // When
         viewModel = AlbumDetailViewModel(mockUseCase, savedStateHandle)
         testDispatcher.scheduler.advanceUntilIdle()
 
-        // Then
         val currentState = viewModel.uiState.value
         assertTrue(currentState is AlbumDetailUiState.Error)
         assertEquals(errorMessage, (currentState as AlbumDetailUiState.Error).message)
@@ -115,14 +107,11 @@ class AlbumDetailViewModelTest {
 
     @Test
     fun `should emit Error state with unknown error when exception has no message`() = runTest {
-        // Given
         coEvery { mockUseCase("Test Album") } throws Exception()
 
-        // When
         viewModel = AlbumDetailViewModel(mockUseCase, savedStateHandle)
         testDispatcher.scheduler.advanceUntilIdle()
 
-        // Then
         val currentState = viewModel.uiState.value
         assertTrue(currentState is AlbumDetailUiState.Error)
         assertEquals("Unknown error", (currentState as AlbumDetailUiState.Error).message)
@@ -130,15 +119,12 @@ class AlbumDetailViewModelTest {
 
     @Test
     fun `should handle empty album name`() = runTest {
-        // Given
         val emptySavedStateHandle = SavedStateHandle(mapOf("albumName" to ""))
         coEvery { mockUseCase("") } throws Exception("Empty album name")
 
-        // When
         val viewModelWithEmptyAlbum = AlbumDetailViewModel(mockUseCase, emptySavedStateHandle)
         testDispatcher.scheduler.advanceUntilIdle()
 
-        // Then
         val currentState = viewModelWithEmptyAlbum.uiState.value
         assertTrue(currentState is AlbumDetailUiState.Error)
         assertEquals("Empty album name", (currentState as AlbumDetailUiState.Error).message)
